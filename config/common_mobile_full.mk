@@ -43,3 +43,7 @@ PRODUCT_PACKAGES += \
 # Include Superior LatinIME dictionaries
 PRODUCT_PACKAGE_OVERLAYS += vendor/superior/overlay/dictionaries
 PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += vendor/superior/overlay/dictionaries
+
+# Google Photos Pixel Exclusive XML
+PRODUCT_COPY_FILES += \
+    vendor/superior/prebuilt/common/etc/sysconfig/pixel_2016_exclusive.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/sysconfig/pixel_2016_exclusive.xml
