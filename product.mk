@@ -43,3 +43,7 @@ endif
 # Weather Package
 PRODUCT_PACKAGES += \
     OmniJaws
+
+# Fonts
+PRODUCT_COPY_FILES += \
+    $(call find-copy-subdir-files,*,vendor/extra/fonts,$(TARGET_COPY_OUT_PRODUCT)/fonts)
