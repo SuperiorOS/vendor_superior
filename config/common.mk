@@ -98,9 +98,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     vendor/superior/config/permissions/org.lineageos.android.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/org.lineageos.android.xml
 
-# Enforce privapp-permissions whitelist
+# Log privapp-permissions whitelist
 PRODUCT_PRODUCT_PROPERTIES += \
-    ro.control_privapp_permissions=enforce
+    ro.control_privapp_permissions=log
 
 ifneq ($(TARGET_DISABLE_SUPERIOR_SDK), true)
 # Superior SDK
