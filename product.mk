@@ -20,3 +20,7 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 
 # Google Faceunlock
 $(call inherit-product, vendor/google/faceunlock/device.mk)
+
+# Weather Package
+PRODUCT_PACKAGES += \
+    OmniJaws
