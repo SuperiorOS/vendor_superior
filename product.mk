@@ -6,6 +6,9 @@ PRODUCT_COPY_FILES += $(EXTRA_PATH)/bootanimation/bootanimation-1080p.zip:$(TARG
 PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
     system/media/bootanimation.zip
 
+# Certification
+$(call inherit-product, vendor/certification/config.mk)
+
 # Overlays
 PRODUCT_PACKAGE_OVERLAYS += \
     $(EXTRA_PATH)/overlay/common
