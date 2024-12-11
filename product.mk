@@ -1,5 +1,12 @@
 EXTRA_PATH := vendor/extra
 
+# Branding
+SUPERIOR_BUILD_DATE_UTC ?= $(shell date -u '+%Y%m%d-%H%M')
+SUPERIOR_VERSION ?= SuperiorOS-Fifteen-ROGUE-$(SUPERIOR_BUILD_DATE_UTC)
+
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+  ro.superior.version=$(SUPERIOR_VERSION)
+
 # Bootanimation
 PRODUCT_COPY_FILES += $(EXTRA_PATH)/bootanimation/bootanimation-1080p.zip:$(TARGET_COPY_OUT_SYSTEM)/media/bootanimation.zip
 
