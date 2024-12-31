@@ -128,7 +128,7 @@ echo -e ""
 # Lunch-time!
 echo -e "${CLR_BLD_BLU}Lunching $DEVICE${CLR_RST}"
 echo -e ""
-lunch "lineage_$DEVICE-ap3a-$BUILD_TYPE"
+lunch "lineage_$DEVICE-ap4a-$BUILD_TYPE"
 SUPERIOR_VERSION="$(get_build_var SUPERIOR_VERSION)"
 checkExit
 echo -e ""
