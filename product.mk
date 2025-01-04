@@ -22,15 +22,19 @@ PRODUCT_PACKAGE_OVERLAYS += \
     $(EXTRA_PATH)/overlay/common
 
 # Google Apps
-WITH_GMS := true
+WITH_GMS ?= true
+ifeq ($(WITH_GMS),true)
 $(call inherit-product, vendor/gapps/arm64/arm64-vendor.mk)
+endif
 
 # API level spoof
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     persist.sys.pihooks.first_api_level=32
 
+ifeq ($(CURRENT_DEVICE),shiba)
 # Google Faceunlock
 $(call inherit-product, vendor/google/faceunlock/device.mk)
+endif
 
 # Weather Package
 PRODUCT_PACKAGES += \
