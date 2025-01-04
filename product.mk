@@ -2,7 +2,8 @@ EXTRA_PATH := vendor/extra
 
 # Branding
 SUPERIOR_BUILD_DATE_UTC ?= $(shell date -u '+%Y%m%d-%H%M')
-SUPERIOR_VERSION ?= SuperiorOS-Fifteen-ROGUE-$(SUPERIOR_BUILD_DATE_UTC)
+CURRENT_DEVICE=$(shell echo "$(TARGET_PRODUCT)" | cut -d'_' -f 2,3)
+SUPERIOR_VERSION ?= SuperiorOS-Fifteen-ROGUE-$(CURRENT_DEVICE)-$(SUPERIOR_BUILD_DATE_UTC)
 
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
   ro.superior.version=$(SUPERIOR_VERSION)

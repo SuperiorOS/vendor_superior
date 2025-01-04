@@ -360,7 +360,7 @@ elif [ "$FLAG_IMG_ZIP" = 'y' ]; then
     checkExit
 
 else
-    mka bacon "$CMD"
+    mka superior "$CMD"
 
     checkExit
 fi
