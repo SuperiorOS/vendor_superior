@@ -46,7 +46,7 @@ function showHelpAndExit {
 }
 
 # Setup getopt.
-long_opts="help,clean,installclean,build-type:,jobs:,module:,sign-keys:,pwfile:,delta:,imgzip"
+long_opts="help,clean,installclean,build-type:,jobs:,module:,sign-keys:,pwfile:,delta:,imgzip,push-ota"
 getopt_cmd=$(getopt -o hcit:j:m:s:p:d:z --long "$long_opts" \
             -n $(basename $0) -- "$@") || \
             { echo -e "${CLR_BLD_RED}\nError: Getopt failed. Extra args\n${CLR_RST}"; showHelpAndExit; exit 1;}
@@ -65,6 +65,7 @@ while true; do
         -p|--pwfile|p|pwfile) PWFILE="$2"; shift;;
         -d|--delta|d|delta) DELTA_TARGET_FILES="$2"; shift;;
         -z|--imgzip|img|imgzip) FLAG_IMG_ZIP=y;;
+        --push-ota) FLAG_PUSH_OTA=y;;
         --) shift; break;;
     esac
     shift
@@ -315,6 +316,12 @@ elif [ "${KEY_MAPPINGS}" ]; then
             $SUPERIOR_VERSION-signed-fullota.zip
 
         checkExit
+
+        if [ "$FLAG_PUSH_OTA" = 'y' ]; then
+            echo -e "${CLR_BLD_BLU}Executing push_ota.sh${CLR_RST}"
+            ./push_ota.sh $SUPERIOR_VERSION-signed-fullota.zip $SUPERIOR_VERSION-signed-target_files.zip
+            checkExit
+        fi
     fi
 
     if [ "$DELTA_TARGET_FILES" ]; then
@@ -330,6 +337,12 @@ elif [ "${KEY_MAPPINGS}" ]; then
             $SUPERIOR_VERSION-signed-target_files.zip \
             $SUPERIOR_VERSION-delta.zip
         checkExit
+
+        if [ "$FLAG_PUSH_OTA" = 'y' ]; then
+            echo -e "${CLR_BLD_BLU}Executing push_ota.sh${CLR_RST}"
+            ./push_ota.sh $SUPERIOR_VERSION-delta.zip $SUPERIOR_VERSION-signed-target_files.zip
+            checkExit
+        fi
     fi
 
     if [ "$FLAG_IMG_ZIP" = 'y' ]; then
