@@ -78,6 +78,10 @@ if [ $# -eq 0 ]; then
 fi
 export DEVICE="$1"; shift
 
+if [ "${DEVICE}" == "shiba" ]; then
+    export ROOMSERVICE_DRYRUN=true
+fi
+
 # Make sure we are running on 64-bit before carrying on with anything
 ARCH=$(uname -m | sed 's/x86_//;s/i[3-6]86/32/')
 if [ "$ARCH" != "64" ]; then
@@ -133,6 +137,20 @@ lunch "lineage_$DEVICE-ap4a-$BUILD_TYPE"
 SUPERIOR_VERSION="$(get_build_var SUPERIOR_VERSION)"
 checkExit
 echo -e ""
+
+# Setup ccache
+CCACHE_SETUP_DIR="${HOME}/.local/ccache"
+if [[ ! -d ${CCACHE_SETUP_DIR} ]]; then
+    echo -e "${CLR_BLD_BLU}Creating ccache directory at  ${CCACHE_SETUP_DIR}${CLR_RST}"
+    echo -e ""
+    mkdir -p ${CCACHE_SETUP_DIR}
+    ccache -M 45G
+fi
+echo -e "${CLR_BLD_BLU}Setting up ccache at  ${CCACHE_SETUP_DIR}${CLR_RST}"
+echo -e ""
+export USE_CCACHE=1
+export CCACHE_DIR=${CCACHE_SETUP_DIR}
+export CCACHE_EXEC=$(which ccache)
 
 # Prep for a clean build, if requested so
 if [ "$FLAG_CLEAN_BUILD" = 'y' ]; then
