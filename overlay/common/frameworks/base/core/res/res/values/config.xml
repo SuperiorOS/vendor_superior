@@ -17,4 +17,7 @@
         <item>com.google.android.gms.location.history</item>
     </string-array>
 
+    <!-- Circle to search -->
+    <string name="config_defaultContextualSearchPackageName" translatable="false">com.google.android.googlequicksearchbox</string>
+
 </resources>
