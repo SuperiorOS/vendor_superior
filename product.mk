@@ -44,6 +44,10 @@ endif
 PRODUCT_PACKAGES += \
     OmniJaws
 
+# Quick Tap
+PRODUCT_PACKAGES += \
+    ColumbusService
+
 # Fonts
 PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*,vendor/extra/fonts,$(TARGET_COPY_OUT_PRODUCT)/fonts)
