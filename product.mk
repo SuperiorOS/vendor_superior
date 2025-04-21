@@ -21,6 +21,9 @@ PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
 # Certification
 $(call inherit-product, vendor/certification/config.mk)
 
+# Contextual Search
+PRODUCT_COPY_FILES += $(EXTRA_PATH)/etc/sysconfig/contextual_search.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/sysconfig/contextual_search.xml
+
 # Overlays
 PRODUCT_PACKAGE_OVERLAYS += \
     $(EXTRA_PATH)/overlay/common
