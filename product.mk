@@ -32,6 +32,9 @@ PRODUCT_PACKAGE_OVERLAYS += \
 WITH_GMS ?= true
 ifeq ($(WITH_GMS),true)
 $(call inherit-product, vendor/gapps/arm64/arm64-vendor.mk)
+
+PRODUCT_PACKAGE_OVERLAYS += \
+    $(EXTRA_PATH)/overlay/gapps
 endif
 
 # API level spoof
