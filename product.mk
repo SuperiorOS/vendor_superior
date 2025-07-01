@@ -18,9 +18,6 @@ PRODUCT_COPY_FILES += $(EXTRA_PATH)/bootanimation/bootanimation-1080p.zip:$(TARG
 PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
     system/media/bootanimation.zip
 
-# Certification
-$(call inherit-product, vendor/certification/config.mk)
-
 # Clocks
 PRODUCT_PACKAGES += \
     SystemUIClocks-BigNum \
