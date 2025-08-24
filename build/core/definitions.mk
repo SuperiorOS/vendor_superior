@@ -7,3 +7,6 @@ endef
 
 # Include board/platform macros
 include vendor/superior/build/core/utils.mk
+
+# Include default installed modules
+include vendor/superior/build/core/default_installed_modules.mk
