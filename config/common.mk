@@ -128,11 +128,7 @@ $(call enforce-product-packages-exist-internal,$(lastword $(_include_stack)),pro
 endif
 
 # Bootanimation
-TARGET_SCREEN_WIDTH ?= 1080
-TARGET_SCREEN_HEIGHT ?= 1920
-PRODUCT_PACKAGES += \
-    bootanimation.zip \
-    bootanimation-dark.zip
+include vendor/superior/bootanimation/bootanimation.mk
 
 # Superior interfaces
 PRODUCT_PACKAGES += \
