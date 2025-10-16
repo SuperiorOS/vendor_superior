@@ -22,16 +22,6 @@ EXPORT_TO_SOONG := \
 $(call add_soong_config_namespace,superiorVarsPlugin)
 $(foreach v,$(EXPORT_TO_SOONG),$(eval $(call add_soong_config_var,superiorVarsPlugin,$(v))))
 
-# Bootanimation
-TARGET_BOOTANIMATION_HALF_RES ?= false
-$(call soong_config_set,superior_bootanimation,height,$(TARGET_SCREEN_HEIGHT))
-$(call soong_config_set,superior_bootanimation,width,$(TARGET_SCREEN_WIDTH))
-$(call soong_config_set,superior_bootanimation,half_res,$(TARGET_BOOTANIMATION_HALF_RES))
-
-ifneq ($(TARGET_BOOTANIMATION),)
-$(call soong_config_set,superior_bootanimation,prebuilt_file,$(TARGET_BOOTANIMATION))
-endif
-
 # Charger
 superior_charger_density := mdpi
 ifneq (,$(TARGET_SCREEN_DENSITY))
