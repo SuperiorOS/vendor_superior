@@ -5,6 +5,7 @@ $(call inherit-product, device/google/cuttlefish/vsoc_arm64/phone/aosp_cf.mk)
 
 include vendor/superior/build/target/product/superior_generic_target.mk
 
+TARGET_DISABLE_EPPE := true
 TARGET_NO_KERNEL_OVERRIDE := true
 
 # Overrides
