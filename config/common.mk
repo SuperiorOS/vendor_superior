@@ -146,6 +146,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     vendor/superior/prebuilt/common/etc/init/init.superior-updater.rc:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/init/init.superior-updater.rc
 
+# ColumbusService
+ifneq ($(TARGET_SUPPORTS_QUICK_TAP),false)
+PRODUCT_PACKAGES += \
+    ColumbusService
+endif
+
 # Config
 PRODUCT_PACKAGES += \
     SimpleDeviceConfig \
