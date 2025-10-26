@@ -286,6 +286,10 @@ CUSTOM_LOCALES += \
     cy_GB \
     fur_IT
 
+# Weather Package
+PRODUCT_PACKAGES += \
+    OmniJaws
+
 PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += vendor/crowdin/overlay
 PRODUCT_PACKAGE_OVERLAYS += vendor/crowdin/overlay
 
