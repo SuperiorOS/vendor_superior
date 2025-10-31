@@ -134,7 +134,7 @@ echo -e ""
 echo -e "${CLR_BLD_BLU}Lunching $DEVICE${CLR_RST}"
 echo -e ""
 lunch "superior_$DEVICE-bp2a-$BUILD_TYPE"
-SUPERIOR_VERSION="$(get_build_var SUPERIOR_VERSION)"
+SUPERIOR_VERSION=SuperiorOS-"$(get_build_var SUPERIOR_VERSION)"
 checkExit
 echo -e ""
 
@@ -207,12 +207,14 @@ elif [ "${KEY_MAPPINGS}" ]; then
         --extra_apks com.android.appsearch.apk.apex=$KEY_MAPPINGS/com.android.appsearch.apk \
         --extra_apks com.android.art.apex=$KEY_MAPPINGS/com.android.art \
         --extra_apks com.android.bluetooth.apex=$KEY_MAPPINGS/com.android.bluetooth \
+        --extra_apks com.android.bt.apex=$KEY_MAPPINGS/com.android.bt \
         --extra_apks com.android.btservices.apex=$KEY_MAPPINGS/com.android.btservices \
         --extra_apks com.android.cellbroadcast.apex=$KEY_MAPPINGS/com.android.cellbroadcast \
         --extra_apks com.android.compos.apex=$KEY_MAPPINGS/com.android.compos \
         --extra_apks com.android.configinfrastructure.apex=$KEY_MAPPINGS/com.android.configinfrastructure \
         --extra_apks com.android.connectivity.resources.apex=$KEY_MAPPINGS/com.android.connectivity.resources \
         --extra_apks com.android.conscrypt.apex=$KEY_MAPPINGS/com.android.conscrypt \
+        --extra_apks com.android.crashrecovery.apex=$KEY_MAPPINGS/com.android.crashrecovery \
         --extra_apks com.android.devicelock.apex=$KEY_MAPPINGS/com.android.devicelock \
         --extra_apks com.android.extservices.apex=$KEY_MAPPINGS/com.android.extservices \
         --extra_apks com.android.graphics.pdf.apex=$KEY_MAPPINGS/com.android.graphics.pdf \
@@ -221,8 +223,16 @@ elif [ "${KEY_MAPPINGS}" ]; then
         --extra_apks com.android.hardware.biometrics.fingerprint.virtual.apex=$KEY_MAPPINGS/com.android.hardware.biometrics.fingerprint.virtual \
         --extra_apks com.android.hardware.boot.apex=$KEY_MAPPINGS/com.android.hardware.boot \
         --extra_apks com.android.hardware.cas.apex=$KEY_MAPPINGS/com.android.hardware.cas \
+        --extra_apks com.android.hardware.contexthub.apex=$KEY_MAPPINGS/com.android.hardware.contexthub \
+        --extra_apks com.android.hardware.dumpstate.apex=$KEY_MAPPINGS/com.android.hardware.dumpstate \
+        --extra_apks com.android.hardware.gatekeeper.nonsecure.apex=$KEY_MAPPINGS/com.android.hardware.gatekeeper.nonsecure \
         --extra_apks com.android.hardware.neuralnetworks.apex=$KEY_MAPPINGS/com.android.hardware.neuralnetworks \
+        --extra_apks com.android.hardware.power.apex=$KEY_MAPPINGS/com.android.hardware.power \
         --extra_apks com.android.hardware.rebootescrow.apex=$KEY_MAPPINGS/com.android.hardware.rebootescrow \
+        --extra_apks com.android.hardware.thermal.apex=$KEY_MAPPINGS/com.android.hardware.thermal \
+        --extra_apks com.android.hardware.threadnetwork.apex=$KEY_MAPPINGS/com.android.hardware.threadnetwork \
+        --extra_apks com.android.hardware.uwb.apex=$KEY_MAPPINGS/com.android.hardware.uwb \
+        --extra_apks com.android.hardware.vibrator.apex=$KEY_MAPPINGS/com.android.hardware.vibrator \
         --extra_apks com.android.hardware.wifi.apex=$KEY_MAPPINGS/com.android.hardware.wifi \
         --extra_apks com.android.healthfitness.apex=$KEY_MAPPINGS/com.android.healthfitness \
         --extra_apks com.android.hotspot2.osulogin.apex=$KEY_MAPPINGS/com.android.hotspot2.osulogin \
@@ -250,6 +260,7 @@ elif [ "${KEY_MAPPINGS}" ]; then
         --extra_apks com.android.telephonymodules.apex=$KEY_MAPPINGS/com.android.telephonymodules \
         --extra_apks com.android.tethering.apex=$KEY_MAPPINGS/com.android.tethering \
         --extra_apks com.android.tzdata.apex=$KEY_MAPPINGS/com.android.tzdata \
+        --extra_apks com.android.uprobestats.apex=$KEY_MAPPINGS/com.android.uprobestats \
         --extra_apks com.android.uwb.apex=$KEY_MAPPINGS/com.android.uwb \
         --extra_apks com.android.uwb.resources.apex=$KEY_MAPPINGS/com.android.uwb.resources \
         --extra_apks com.android.virt.apex=$KEY_MAPPINGS/com.android.virt \
@@ -268,12 +279,14 @@ elif [ "${KEY_MAPPINGS}" ]; then
         --extra_apex_payload_key com.android.appsearch.apk.apex=$KEY_MAPPINGS/com.android.appsearch.apk.pem \
         --extra_apex_payload_key com.android.art.apex=$KEY_MAPPINGS/com.android.art.pem \
         --extra_apex_payload_key com.android.bluetooth.apex=$KEY_MAPPINGS/com.android.bluetooth.pem \
+        --extra_apex_payload_key com.android.bt.apex=$KEY_MAPPINGS/com.android.bt.pem \
         --extra_apex_payload_key com.android.btservices.apex=$KEY_MAPPINGS/com.android.btservices.pem \
         --extra_apex_payload_key com.android.cellbroadcast.apex=$KEY_MAPPINGS/com.android.cellbroadcast.pem \
         --extra_apex_payload_key com.android.compos.apex=$KEY_MAPPINGS/com.android.compos.pem \
         --extra_apex_payload_key com.android.configinfrastructure.apex=$KEY_MAPPINGS/com.android.configinfrastructure.pem \
         --extra_apex_payload_key com.android.connectivity.resources.apex=$KEY_MAPPINGS/com.android.connectivity.resources.pem \
         --extra_apex_payload_key com.android.conscrypt.apex=$KEY_MAPPINGS/com.android.conscrypt.pem \
+        --extra_apex_payload_key com.android.crashrecovery.apex=$KEY_MAPPINGS/com.android.crashrecovery.pem \
         --extra_apex_payload_key com.android.devicelock.apex=$KEY_MAPPINGS/com.android.devicelock.pem \
         --extra_apex_payload_key com.android.extservices.apex=$KEY_MAPPINGS/com.android.extservices.pem \
         --extra_apex_payload_key com.android.graphics.pdf.apex=$KEY_MAPPINGS/com.android.graphics.pdf.pem \
@@ -282,8 +295,16 @@ elif [ "${KEY_MAPPINGS}" ]; then
         --extra_apex_payload_key com.android.hardware.biometrics.fingerprint.virtual.apex=$KEY_MAPPINGS/com.android.hardware.biometrics.fingerprint.virtual.pem \
         --extra_apex_payload_key com.android.hardware.boot.apex=$KEY_MAPPINGS/com.android.hardware.boot.pem \
         --extra_apex_payload_key com.android.hardware.cas.apex=$KEY_MAPPINGS/com.android.hardware.cas.pem \
+        --extra_apex_payload_key com.android.hardware.contexthub.apex=$KEY_MAPPINGS/com.android.hardware.contexthub.pem \
+        --extra_apex_payload_key com.android.hardware.dumpstate.apex=$KEY_MAPPINGS/com.android.hardware.dumpstate.pem \
+        --extra_apex_payload_key com.android.hardware.gatekeeper.nonsecure.apex=$KEY_MAPPINGS/com.android.hardware.gatekeeper.nonsecure.pem \
         --extra_apex_payload_key com.android.hardware.neuralnetworks.apex=$KEY_MAPPINGS/com.android.hardware.neuralnetworks.pem \
+        --extra_apex_payload_key com.android.hardware.power.apex=$KEY_MAPPINGS/com.android.hardware.power.pem \
         --extra_apex_payload_key com.android.hardware.rebootescrow.apex=$KEY_MAPPINGS/com.android.hardware.rebootescrow.pem \
+        --extra_apex_payload_key com.android.hardware.thermal.apex=$KEY_MAPPINGS/com.android.hardware.thermal.pem \
+        --extra_apex_payload_key com.android.hardware.threadnetwork.apex=$KEY_MAPPINGS/com.android.hardware.threadnetwork.pem \
+        --extra_apex_payload_key com.android.hardware.uwb.apex=$KEY_MAPPINGS/com.android.hardware.uwb.pem \
+        --extra_apex_payload_key com.android.hardware.vibrator.apex=$KEY_MAPPINGS/com.android.hardware.vibrator.pem \
         --extra_apex_payload_key com.android.hardware.wifi.apex=$KEY_MAPPINGS/com.android.hardware.wifi.pem \
         --extra_apex_payload_key com.android.healthfitness.apex=$KEY_MAPPINGS/com.android.healthfitness.pem \
         --extra_apex_payload_key com.android.hotspot2.osulogin.apex=$KEY_MAPPINGS/com.android.hotspot2.osulogin.pem \
@@ -311,6 +332,7 @@ elif [ "${KEY_MAPPINGS}" ]; then
         --extra_apex_payload_key com.android.telephonymodules.apex=$KEY_MAPPINGS/com.android.telephonymodules.pem \
         --extra_apex_payload_key com.android.tethering.apex=$KEY_MAPPINGS/com.android.tethering.pem \
         --extra_apex_payload_key com.android.tzdata.apex=$KEY_MAPPINGS/com.android.tzdata.pem \
+        --extra_apex_payload_key com.android.uprobestats.apex=$KEY_MAPPINGS/com.android.uprobestats.pem \
         --extra_apex_payload_key com.android.uwb.apex=$KEY_MAPPINGS/com.android.uwb.pem \
         --extra_apex_payload_key com.android.uwb.resources.apex=$KEY_MAPPINGS/com.android.uwb.resources.pem \
         --extra_apex_payload_key com.android.virt.apex=$KEY_MAPPINGS/com.android.virt.pem \
@@ -336,8 +358,8 @@ elif [ "${KEY_MAPPINGS}" ]; then
         checkExit
 
         if [ "$FLAG_PUSH_OTA" = 'y' ]; then
-            echo -e "${CLR_BLD_BLU}Executing push_ota.sh${CLR_RST}"
-            ./push_ota.sh $SUPERIOR_VERSION-signed-fullota.zip $SUPERIOR_VERSION-signed-target_files.zip
+            echo -e "${CLR_BLD_BLU}Executing push_ota${CLR_RST}"
+            ./push_ota $SUPERIOR_VERSION-signed-fullota.zip $SUPERIOR_VERSION-signed-target_files.zip
             checkExit
         fi
     fi
@@ -350,15 +372,14 @@ elif [ "${KEY_MAPPINGS}" ]; then
         fi
         echo -e "${CLR_BLD_BLU}Generating signed incremental package${CLR_RST}"
         ota_from_target_files -k $KEY_MAPPINGS/releasekey \
-            --block --backup=true \
             --incremental_from $DELTA_TARGET_FILES \
             $SUPERIOR_VERSION-signed-target_files.zip \
             $SUPERIOR_VERSION-delta.zip
         checkExit
 
         if [ "$FLAG_PUSH_OTA" = 'y' ]; then
-            echo -e "${CLR_BLD_BLU}Executing push_ota.sh${CLR_RST}"
-            ./push_ota.sh $SUPERIOR_VERSION-delta.zip $SUPERIOR_VERSION-signed-target_files.zip
+            echo -e "${CLR_BLD_BLU}Executing push_ota${CLR_RST}"
+            ./push_ota $SUPERIOR_VERSION-delta.zip $SUPERIOR_VERSION-signed-target_files.zip
             checkExit
         fi
     fi
