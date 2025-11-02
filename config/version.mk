@@ -1,35 +1,24 @@
 PRODUCT_VERSION_MAJOR = 16
 PRODUCT_VERSION_MINOR = 0
 
-ifeq ($(SUPERIOR_VERSION_APPEND_TIME_OF_DAY),true)
-    SUPERIOR_BUILD_DATE := $(shell date -u +%Y%m%d_%H%M%S)
-else
-    SUPERIOR_BUILD_DATE := $(shell date -u +%Y%m%d)
-endif
+# Build date
+SUPERIOR_BUILD_DATE := $(shell date -u '+%Y%m%d-%H%M')
 
-# Set SUPERIOR_BUILDTYPE from the env RELEASE_TYPE, for jenkins compat
+# Extract device codename
+CURRENT_DEVICE := $(wordlist 2,3,$(subst _, ,$(TARGET_PRODUCT)))
+DEVICE_LIST := $(file < vendor/superior/superior.devices)
 
-ifndef SUPERIOR_BUILDTYPE
-    ifdef RELEASE_TYPE
-        # Starting with "SUPERIOR_" is optional
-        RELEASE_TYPE := $(shell echo $(RELEASE_TYPE) | sed -e 's|^SUPERIOR_||g')
-        SUPERIOR_BUILDTYPE := $(RELEASE_TYPE)
+# Default build type
+SUPERIOR_BUILDTYPE ?= COMMUNITY
+
+ifeq ($(SUPERIOR_BUILDTYPE),OFFICIAL)
+    SUPERIOR_BUILDTYPE := COMMUNITY
+    ifneq ($(filter $(CURRENT_DEVICE),$(DEVICE_LIST)),)
+        SUPERIOR_BUILDTYPE := OFFICIAL
     endif
 endif
 
-# Filter out random types, so it'll reset to UNOFFICIAL
-ifeq ($(filter RELEASE NIGHTLY SNAPSHOT EXPERIMENTAL,$(SUPERIOR_BUILDTYPE)),)
-    SUPERIOR_BUILDTYPE := UNOFFICIAL
-    SUPERIOR_EXTRAVERSION :=
-endif
-
-ifeq ($(SUPERIOR_BUILDTYPE), UNOFFICIAL)
-    ifneq ($(TARGET_UNOFFICIAL_BUILD_ID),)
-        SUPERIOR_EXTRAVERSION := -$(TARGET_UNOFFICIAL_BUILD_ID)
-    endif
-endif
-
-SUPERIOR_VERSION_SUFFIX := $(SUPERIOR_BUILD_DATE)-$(SUPERIOR_BUILDTYPE)$(SUPERIOR_EXTRAVERSION)-$(SUPERIOR_BUILD)
+SUPERIOR_VERSION_SUFFIX := $(SUPERIOR_BUILD_DATE)-$(SUPERIOR_BUILDTYPE)-$(CURRENT_DEVICE)
 
 # Internal version
 SUPERIOR_VERSION := $(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR)-$(SUPERIOR_VERSION_SUFFIX)
