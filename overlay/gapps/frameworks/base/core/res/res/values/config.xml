@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2020-2024 The SuperiorOS Project
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+    <!-- GAPPS configs -->
+    <string name="config_defaultQrCodeComponent">com.google.android.gms/.mlkit.barcode.ui.PlatformBarcodeScanningActivityProxy</string>
+    <string name="config_deviceConfiguratorPackageName">com.google.android.gms</string>
+</resources>
