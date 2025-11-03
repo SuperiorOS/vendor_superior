@@ -265,6 +265,14 @@ endif
 
 PRODUCT_SYSTEM_PROPERTIES += ro.surface_flinger.supports_background_blur=1
 
+# Google Apps
+WITH_GAPPS ?= true
+ifeq ($(WITH_GAPPS),true)
+$(call inherit-product, vendor/gapps/arm64/arm64-vendor.mk)
+PRODUCT_PACKAGE_OVERLAYS += \
+    vendor/superior/overlay/gapps
+endif
+
 # SetupWizard
 PRODUCT_PRODUCT_PROPERTIES += \
     setupwizard.theme=glif_v4 \
