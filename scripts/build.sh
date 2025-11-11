@@ -46,7 +46,7 @@ function showHelpAndExit {
 }
 
 # Setup getopt.
-long_opts="help,clean,installclean,build-type:,jobs:,module:,sign-keys:,pwfile:,delta:,imgzip,push-ota"
+long_opts="help,clean,installclean,build-type:,jobs:,module:,sign-keys:,pwfile:,delta:,imgzip,push-ota:"
 getopt_cmd=$(getopt -o hcit:j:m:s:p:d:z --long "$long_opts" \
             -n $(basename $0) -- "$@") || \
             { echo -e "${CLR_BLD_RED}\nError: Getopt failed. Extra args\n${CLR_RST}"; showHelpAndExit; exit 1;}
@@ -65,7 +65,7 @@ while true; do
         -p|--pwfile|p|pwfile) PWFILE="$2"; shift;;
         -d|--delta|d|delta) DELTA_TARGET_FILES="$2"; shift;;
         -z|--imgzip|img|imgzip) FLAG_IMG_ZIP=y;;
-        --push-ota) FLAG_PUSH_OTA=y;;
+        --push-ota) FLAG_PUSH_OTA=y; OTA_MODE="$2"; shift;;
         --) shift; break;;
     esac
     shift
@@ -77,10 +77,8 @@ if [ $# -eq 0 ]; then
     showHelpAndExit
 fi
 export DEVICE="$1"; shift
+export ROOMSERVICE_DRYRUN=true
 
-if [ "${DEVICE}" == "shiba" ]; then
-    export ROOMSERVICE_DRYRUN=true
-fi
 
 # Make sure we are running on 64-bit before carrying on with anything
 ARCH=$(uname -m | sed 's/x86_//;s/i[3-6]86/32/')
@@ -359,7 +357,7 @@ elif [ "${KEY_MAPPINGS}" ]; then
 
         if [ "$FLAG_PUSH_OTA" = 'y' ]; then
             echo -e "${CLR_BLD_BLU}Executing push_ota${CLR_RST}"
-            ./push_ota $SUPERIOR_VERSION-signed-fullota.zip $SUPERIOR_VERSION-signed-target_files.zip
+            ./push_ota $SUPERIOR_VERSION-signed-fullota.zip $SUPERIOR_VERSION-signed-target_files.zip "$OTA_MODE"
             checkExit
         fi
     fi
@@ -379,7 +377,7 @@ elif [ "${KEY_MAPPINGS}" ]; then
 
         if [ "$FLAG_PUSH_OTA" = 'y' ]; then
             echo -e "${CLR_BLD_BLU}Executing push_ota${CLR_RST}"
-            ./push_ota $SUPERIOR_VERSION-delta.zip $SUPERIOR_VERSION-signed-target_files.zip
+            ./push_ota $SUPERIOR_VERSION-delta.zip $SUPERIOR_VERSION-signed-target_files.zip "$OTA_MODE"
             checkExit
         fi
     fi
