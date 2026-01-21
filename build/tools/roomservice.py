@@ -45,14 +45,14 @@ except IndexError:
 
 if not depsonly:
     print(
-        f'Device {device} not found. Attempting to retrieve device repository from LineageOS Github (http://github.com/LineageOS).'
+        f'Device {device} not found. Attempting to retrieve device repository from SuperiorOS Github (http://github.com/SuperiorOS).'
     )
 
 repositories = []
 
 if not depsonly:
     githubreq = urllib.request.Request(
-        'https://raw.githubusercontent.com/LineageOS/mirror/main/default.xml'
+        'https://raw.githubusercontent.com/SuperiorOS/mirror/main/default.xml'
     )
     try:
         result = ElementTree.fromstring(
@@ -161,9 +161,9 @@ def is_in_manifest(tag, attr, attr_value):
         if localpath.get(attr) == attr_value:
             return True
 
-    # ... and don't forget the lineage snippet
+    # ... and don't forget the superior snippet
     try:
-        lm = ElementTree.parse('.repo/manifests/snippets/lineage.xml')
+        lm = ElementTree.parse('.repo/manifests/snippets/superior.xml')
         lm = lm.getroot()
     except Exception:
         lm = ElementTree.Element('manifest')
@@ -211,7 +211,7 @@ def add_to_manifest(dependencies):
             repo_revision = dependency['branch']
             print(f'Checking if {repo_target} is fetched from {repo_name}')
             if is_in_manifest('project', 'path', repo_target):
-                print(f'LineageOS/{repo_name} already fetched to {repo_target}')
+                print(f'SuperiorOS/{repo_name} already fetched to {repo_target}')
                 continue
 
             project = ElementTree.Element(
@@ -219,7 +219,7 @@ def add_to_manifest(dependencies):
                 attrib={
                     'path': repo_target,
                     'remote': 'github',
-                    'name': f'LineageOS/{repo_name}',
+                    'name': f'SuperiorOS/{repo_name}',
                     'revision': repo_revision,
                 },
             )
@@ -252,7 +252,7 @@ def add_to_manifest(dependencies):
 
 def fetch_dependencies(repo_path):
     print(f'Looking for dependencies in {repo_path}')
-    dependencies_path = repo_path + '/lineage.dependencies'
+    dependencies_path = repo_path + '/superior.dependencies'
     syncable_repos = []
     verify_repos = []
 
@@ -324,7 +324,7 @@ def get_default_or_fallback_revision(repo_name):
                 'git',
                 'ls-remote',
                 '-h',
-                'https://:@github.com/LineageOS/' + repo_name,
+                'https://:@github.com/SuperiorOS/' + repo_name,
             ],
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
@@ -399,5 +399,5 @@ else:
             sys.exit()
 
 print(
-    f'Repository for {device} not found in the LineageOS Github repository list. If this is in error, you may need to manually add it to your local_manifests/roomservice.xml.'
+    f'Repository for {device} not found in the SuperiorOS Github repository list. If this is in error, you may need to manually add it to your local_manifests/roomservice.xml.'
 )
