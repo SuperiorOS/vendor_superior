@@ -1,6 +1,6 @@
-function __print_lineage_functions_help() {
+function __print_superior_functions_help() {
 cat <<EOF
-Additional LineageOS functions:
+Additional SuperiorOS functions:
 - brunch:          Runs "breakfast" and "mka bacon" for the provided device target.
 - breakfast:       Wrapper for "lunch".
 - eat:             Reboots to recovery and installs the compiled OTA package.
@@ -14,7 +14,7 @@ Additional LineageOS functions:
 - lineageremote:   Add git remote for LineageOS Gerrit Review.
 - aospremote:      Add git remote for matching AOSP repository.
 - cloremote:       Add git remote for matching CodeLinaro repository.
-- githubremote:    Add git remote for LineageOS Github.
+- githubremote:    Add git remote for SuperiorOS Github.
 - privateremote:   Add git remote for Github with ssh access.
 - mka:             Alias to "m".
 - mkap:            Builds the module(s) using mka and pushes them to the device.

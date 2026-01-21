@@ -16,19 +16,19 @@ EXPORT_TO_SOONG := \
 
 # Setup SOONG_CONFIG_* vars to export the vars listed above.
 # Documentation here:
-# https://github.com/LineageOS/android_build_soong/commit/8328367c44085b948c003116c0ed74a047237a69
+# https://github.com/SuperiorOS/android_build_soong/commit/8328367c44085b948c003116c0ed74a047237a69
 
-$(call add_soong_config_namespace,lineageVarsPlugin)
-$(foreach v,$(EXPORT_TO_SOONG),$(eval $(call add_soong_config_var,lineageVarsPlugin,$(v))))
+$(call add_soong_config_namespace,superiorVarsPlugin)
+$(foreach v,$(EXPORT_TO_SOONG),$(eval $(call add_soong_config_var,superiorVarsPlugin,$(v))))
 
 # Bootanimation
 TARGET_BOOTANIMATION_HALF_RES ?= false
-$(call soong_config_set,lineage_bootanimation,height,$(TARGET_SCREEN_HEIGHT))
-$(call soong_config_set,lineage_bootanimation,width,$(TARGET_SCREEN_WIDTH))
-$(call soong_config_set,lineage_bootanimation,half_res,$(TARGET_BOOTANIMATION_HALF_RES))
+$(call soong_config_set,superior_bootanimation,height,$(TARGET_SCREEN_HEIGHT))
+$(call soong_config_set,superior_bootanimation,width,$(TARGET_SCREEN_WIDTH))
+$(call soong_config_set,superior_bootanimation,half_res,$(TARGET_BOOTANIMATION_HALF_RES))
 
 ifneq ($(TARGET_BOOTANIMATION),)
-$(call soong_config_set,lineage_bootanimation,prebuilt_file,$(TARGET_BOOTANIMATION))
+$(call soong_config_set,superior_bootanimation,prebuilt_file,$(TARGET_BOOTANIMATION))
 endif
 
 # Camera
@@ -37,18 +37,18 @@ ifneq ($(TARGET_CAMERA_OVERRIDE_FORMAT_FROM_RESERVED),)
 endif
 
 # Charger
-lineage_charger_density := mdpi
+superior_charger_density := mdpi
 ifneq (,$(TARGET_SCREEN_DENSITY))
-lineage_charger_density := $(strip \
+superior_charger_density := $(strip \
   $(or $(if $(filter $(shell echo $$(($(TARGET_SCREEN_DENSITY) >= 560))),1),xxxhdpi),\
        $(if $(filter $(shell echo $$(($(TARGET_SCREEN_DENSITY) >= 400))),1),xxhdpi),\
        $(if $(filter $(shell echo $$(($(TARGET_SCREEN_DENSITY) >= 280))),1),xhdpi),\
        $(if $(filter $(shell echo $$(($(TARGET_SCREEN_DENSITY) >= 200))),1),hdpi,mdpi)))
 else ifneq (,$(filter mdpi hdpi xhdpi xxhdpi xxxhdpi,$(PRODUCT_AAPT_PREF_CONFIG)))
 # If PRODUCT_AAPT_PREF_CONFIG includes a dpi bucket, then use that value.
-lineage_charger_density := $(PRODUCT_AAPT_PREF_CONFIG)
+superior_charger_density := $(PRODUCT_AAPT_PREF_CONFIG)
 endif
-$(call soong_config_set,lineage_charger,density,$(lineage_charger_density))
+$(call soong_config_set,superior_charger,density,$(superior_charger_density))
 
 # Libui
 ifneq ($(TARGET_ADDITIONAL_GRALLOC_10_USAGE_BITS),)
