@@ -976,7 +976,7 @@ function build_kernel() {
     if [[ "${SKIP_KERNEL_SYNC}" != "true" && "${SKIP_KERNEL_SYNC}" != "1" ]]; then
         echo "Syncing ${KERNEL_BUILD_TOP}"
         local target_kernel_manifest=$(echo android_kernel_${target_kernel_source}_manifest | tr / _)
-        local repo_init_args=("-b" "${superior_version}")
+        local repo_init_args=("-b" "lineage-23.2")
         if [ -n "${SUPERIOR_MIRROR}" ]; then
             repo_init_args+=("--reference" "${SUPERIOR_MIRROR}")
         fi

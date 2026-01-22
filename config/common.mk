@@ -257,6 +257,7 @@ endif
 $(call inherit-product, vendor/superior/audio/audio.mk)
 
 # Google Apps
+WITH_GAPPS ?= true
 ifeq ($(WITH_GAPPS),true)
 $(call inherit-product, vendor/gapps/arm64/arm64-vendor.mk)
 PRODUCT_PACKAGE_OVERLAYS += \

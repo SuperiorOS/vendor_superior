@@ -255,6 +255,7 @@ elif [ "${KEY_MAPPINGS}" ]; then
         --extra_apks com.android.sdkext.apex=$KEY_MAPPINGS/com.android.sdkext \
         --extra_apks com.android.support.apexer.apex=$KEY_MAPPINGS/com.android.support.apexer \
         --extra_apks com.android.telephony.apex=$KEY_MAPPINGS/com.android.telephony \
+        --extra_apks com.android.telephonycore.apex=$KEY_MAPPINGS/com.android.telephonycore \
         --extra_apks com.android.telephonymodules.apex=$KEY_MAPPINGS/com.android.telephonymodules \
         --extra_apks com.android.tethering.apex=$KEY_MAPPINGS/com.android.tethering \
         --extra_apks com.android.tzdata.apex=$KEY_MAPPINGS/com.android.tzdata \
@@ -327,6 +328,7 @@ elif [ "${KEY_MAPPINGS}" ]; then
         --extra_apex_payload_key com.android.sdkext.apex=$KEY_MAPPINGS/com.android.sdkext.pem \
         --extra_apex_payload_key com.android.support.apexer.apex=$KEY_MAPPINGS/com.android.support.apexer.pem \
         --extra_apex_payload_key com.android.telephony.apex=$KEY_MAPPINGS/com.android.telephony.pem \
+        --extra_apex_payload_key com.android.telephonycore.apex=$KEY_MAPPINGS/com.android.telephonycore.pem \
         --extra_apex_payload_key com.android.telephonymodules.apex=$KEY_MAPPINGS/com.android.telephonymodules.pem \
         --extra_apex_payload_key com.android.tethering.apex=$KEY_MAPPINGS/com.android.tethering.pem \
         --extra_apex_payload_key com.android.tzdata.apex=$KEY_MAPPINGS/com.android.tzdata.pem \

@@ -98,19 +98,19 @@ fi
 TMP_DIR=$(mktemp -d)
 trap "rm -rf $TMP_DIR" EXIT
 
-# Extract the build.prop file from the SYSTEM directory
+# Extract the build.prop file from the PRODUCT/etc directory
 echo -e "${BLUE}Extracting build.prop from the target ZIP...${RESET}"
-unzip -q "$TARGET_ZIP" "SYSTEM/build.prop" -d "$TMP_DIR"
+unzip -q "$TARGET_ZIP" "PRODUCT/etc/build.prop" -d "$TMP_DIR"
 if [[ $? -ne 0 ]]; then
-    echo -e "${RED}Error: Failed to extract 'SYSTEM/build.prop' from '$TARGET_ZIP'.${RESET}"
+    echo -e "${RED}Error: Failed to extract 'PRODUCT/etc/build.prop' from '$TARGET_ZIP'.${RESET}"
     exit 1
 fi
 
-BUILD_PROP="$TMP_DIR/SYSTEM/build.prop"
+BUILD_PROP="$TMP_DIR/PRODUCT/etc/build.prop"
 
 # Validate the existence of the build.prop file
 if [[ ! -f "$BUILD_PROP" ]]; then
-    echo -e "${RED}Error: build.prop file not found in 'SYSTEM/' inside the ZIP.${RESET}"
+    echo -e "${RED}Error: build.prop file not found in 'PRODUCT/etc/' inside the ZIP.${RESET}"
     exit 1
 fi
 
@@ -159,8 +159,8 @@ JSON=$(cat <<EOF
       "size": $SIZE,
       "url": "$BASE_URL/$DEVICE/$(basename "$FILE_PATH")",
       "version": "$VERSION",
-      "device_name": "${DEVICE_NAME:-Unknown Device}",
-      "maintainer": "${MAINTAINER:-Unknown Maintainer}"
+      "device_name": "${DEVICE_NAME}",
+      "maintainer": "${MAINTAINER}"
     }
   ]
 }
