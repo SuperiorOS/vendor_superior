@@ -15,7 +15,8 @@ PRODUCT_PACKAGES += \
     Profiles \
     Recorder \
     Seedvault \
-    Twelve
+    Twelve \
+    OmniJaws
 
 ifneq ($(PRODUCT_NO_CAMERA),true)
 PRODUCT_PACKAGES += \
