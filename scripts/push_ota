@@ -37,6 +37,35 @@ push_to_repo() {
     git clone "$REPO_URL" "$OTA_FOLDER"
 
     OUTPUT_FILE="$OTA_FOLDER/${DEVICE}.json"
+
+    # Defaults (used if JSON does not already exist)
+    DEVICE_NAME="Unknown Device"
+    MAINTAINER="Unknown Maintainer"
+
+    # Preserve existing values if present
+    if [[ -f "$OUTPUT_FILE" ]]; then
+        DEVICE_NAME=$(jq -r '.response[0].device_name // empty' "$OUTPUT_FILE")
+        MAINTAINER=$(jq -r '.response[0].maintainer // empty' "$OUTPUT_FILE")
+    fi
+
+    JSON=$(cat <<EOF
+{
+  "response": [
+    {
+      "datetime": $DATETIME,
+      "filename": "$(basename "$FILE_PATH")",
+      "id": "$FILE_ID",
+      "romtype": "$ROMTYPE",
+      "size": $SIZE,
+      "url": "$BASE_URL/$DEVICE/$(basename "$FILE_PATH")",
+      "version": "$VERSION",
+      "device_name": "$DEVICE_NAME",
+      "maintainer": "$MAINTAINER"
+    }
+  ]
+}
+EOF
+)
     echo "$JSON" > "$OUTPUT_FILE"
     echo -e "${GREEN}JSON generated and saved to $OUTPUT_FILE for $LABEL.${RESET}"
 
@@ -135,37 +164,6 @@ fi
 # Get the size and sha1sum of the FILE_PATH
 SIZE=$(stat -c%s "$FILE_PATH")
 FILE_ID=$(sha1sum "$FILE_PATH" | awk '{print $1}')
-
-# Generate the JSON
-# Preserve device_name and maintainer if JSON exists
-OUTPUT_FILE="$OTA_FOLDER/${DEVICE}.json"
-DEVICE_NAME=""
-MAINTAINER=""
-
-if [[ -f "$OUTPUT_FILE" ]]; then
-    DEVICE_NAME=$(grep '"device_name"' "$OUTPUT_FILE" | sed 's/.*: "\(.*\)".*/\1/')
-    MAINTAINER=$(grep '"maintainer"' "$OUTPUT_FILE" | sed 's/.*: "\(.*\)".*/\1/')
-fi
-
-# Generate new JSON content
-JSON=$(cat <<EOF
-{
-  "response": [
-    {
-      "datetime": $DATETIME,
-      "filename": "$(basename "$FILE_PATH")",
-      "id": "$FILE_ID",
-      "romtype": "$ROMTYPE",
-      "size": $SIZE,
-      "url": "$BASE_URL/$DEVICE/$(basename "$FILE_PATH")",
-      "version": "$VERSION",
-      "device_name": "${DEVICE_NAME}",
-      "maintainer": "${MAINTAINER}"
-    }
-  ]
-}
-EOF
-)
 
 case "$MODE" in
     test)
