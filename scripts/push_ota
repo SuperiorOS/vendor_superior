@@ -146,7 +146,7 @@ fi
 # Extract properties from build.prop
 DATETIME=$(extract_property "ro.build.date.utc")
 ROMTYPE=$(extract_property "ro.superior.releasetype")
-DEVICE=$(extract_property "ro.lineage.device")
+DEVICE=$(extract_property "ro.superior.device")
 
 # Set SourceForge remote path
 REMOTE_PATH="/home/frs/project/$PROJECT/$DEVICE"
