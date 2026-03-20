@@ -48,10 +48,10 @@ endif
 PRODUCT_COPY_FILES += \
     vendor/superior/prebuilt/common/bin/backuptool.sh:install/bin/backuptool.sh \
     vendor/superior/prebuilt/common/bin/backuptool.functions:install/bin/backuptool.functions \
-    vendor/superior/prebuilt/common/bin/50-superior.sh:$(TARGET_COPY_OUT_SYSTEM)/backup.tools/50-superior.sh
+    vendor/superior/prebuilt/common/bin/50-superior.sh:$(TARGET_COPY_OUT_SYSTEM)/addon.d/50-superior.sh
 
 PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
-    system/backup.tools/50-superior.sh
+    system/addon.d/50-superior.sh
 
 ifneq ($(strip $(AB_OTA_PARTITIONS) $(AB_OTA_POSTINSTALL_CONFIG)),)
 PRODUCT_COPY_FILES += \
