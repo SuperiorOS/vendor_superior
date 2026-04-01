@@ -349,7 +349,6 @@ elif [ "${KEY_MAPPINGS}" ]; then
 
     checkExit
 
-    if [ -z "${DELTA_TARGET_FILES}" ]; then
         echo -e "${CLR_BLD_BLU}Generating signed install package${CLR_RST}"
         ota_from_target_files -k $KEY_MAPPINGS/releasekey \
             $SUPERIOR_VERSION-signed-target_files.zip \
@@ -361,7 +360,6 @@ elif [ "${KEY_MAPPINGS}" ]; then
             echo -e "${CLR_BLD_BLU}Executing push_ota${CLR_RST}"
             ./push_ota $SUPERIOR_VERSION-signed-fullota.zip $SUPERIOR_VERSION-signed-target_files.zip "$OTA_MODE"
             checkExit
-        fi
     fi
 
     if [ "$DELTA_TARGET_FILES" ]; then
