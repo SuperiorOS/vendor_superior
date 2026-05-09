@@ -119,6 +119,7 @@ TARGET_MERGE_DTBS_WILDCARD ?= *
 TARGET_DTB_LIST_WILDCARD ?= *
 # dtbo generation - optional
 TARGET_MERGE_DTBOS_WILDCARD ?= *
+TARGET_DTBO_LIST_WILDCARD ?= *
 # recovery modules.load fallback - optional
 BOARD_RECOVERY_KERNEL_MODULES_LOAD ?= $(BOARD_RECOVERY_RAMDISK_KERNEL_MODULES_LOAD)
 TARGET_KERNEL_MIXED_MODE ?= true
@@ -175,7 +176,7 @@ ifeq "$(wildcard $(KERNEL_SRC) )" ""
     endif
 
     ifneq ($(TARGET_KERNEL_PLATFORM_TARGET),)
-        ifeq "$(wildcard $(abspath $(BUILD_TOP)/../kernel-$(TARGET_KERNEL_VERSION))/$(KERNEL_SRC) )" ""
+        ifeq "$(wildcard $(abspath $(BUILD_TOP)/kernel/platform/kernel-$(TARGET_KERNEL_VERSION))/$(KERNEL_SRC) )" ""
             $(warning ***************************************************************)
             $(warning *                                                             *)
             $(warning * No kernel platform source found.                            *)
@@ -561,7 +562,7 @@ $(TARGET_PREBUILT_INT_KERNEL): $(KERNEL_CONFIG) $(DEPMOD) $(DTC) $(KERNEL_MODULE
 			filtered_modules=""; \
 			$(if $(SYSTEM_KERNEL_MODULES),\
 				$(if $(filter true,$(TARGET_AUTO_COLLECT_KERNEL_MODULE_DEPS)), \
-					gki_kernel_modules_deps=$$($(COLLECT_MODULE_DEPS_CMD) $(KERNEL_OUT) $(SYSTEM_KERNEL_MODULES) | tr '\n' ' '); \
+					gki_kernel_modules_deps=$$($(COLLECT_MODULE_DEPS_CMD) $$kernel_modules_dir $(SYSTEM_KERNEL_MODULES) | tr '\n' ' '); \
 				) \
 				gki_modules=$$(for m in $(SYSTEM_KERNEL_MODULES) $$gki_kernel_modules_deps; do \
 					p=$$(echo $$all_modules | tr ' ' '\n' | grep /$$m); \
@@ -586,10 +587,10 @@ $(TARGET_PREBUILT_INT_KERNEL): $(KERNEL_CONFIG) $(DEPMOD) $(DTC) $(KERNEL_MODULE
 			) \
 			$(if $(BOOT_KERNEL_MODULES)$(BOOT_KERNEL_MODULES_FINDER),\
 				$(if $(BOOT_KERNEL_MODULES_FINDER), \
-					boot_kernel_modules_finder_output=$$($(BOOT_KERNEL_MODULES_FINDER) $(KERNEL_OUT) | tr '\n' ' '); \
+					boot_kernel_modules_finder_output=$$($(BOOT_KERNEL_MODULES_FINDER) $$kernel_modules_dir | tr '\n' ' '); \
 				) \
 				$(if $(filter true,$(TARGET_AUTO_COLLECT_KERNEL_MODULE_DEPS)), \
-					boot_kernel_modules_deps=$$($(COLLECT_MODULE_DEPS_CMD) $(KERNEL_OUT) $(BOOT_KERNEL_MODULES) $$boot_kernel_modules_finder_output | tr '\n' ' '); \
+					boot_kernel_modules_deps=$$($(COLLECT_MODULE_DEPS_CMD) $$kernel_modules_dir $(BOOT_KERNEL_MODULES) $$boot_kernel_modules_finder_output | tr '\n' ' '); \
 				) \
 				vendor_boot_modules=$$(for m in $(BOOT_KERNEL_MODULES) $$boot_kernel_modules_deps $$boot_kernel_modules_finder_output; do \
 					p=$$(echo $$all_modules | tr ' ' '\n' | grep /$$m); \
@@ -600,10 +601,10 @@ $(TARGET_PREBUILT_INT_KERNEL): $(KERNEL_CONFIG) $(DEPMOD) $(DTC) $(KERNEL_MODULE
 			) \
 			$(if $(RECOVERY_KERNEL_MODULES)$(RECOVERY_KERNEL_MODULES_FINDER),\
 				$(if $(RECOVERY_KERNEL_MODULES_FINDER), \
-					recovery_kernel_modules_finder_output=$$($(RECOVERY_KERNEL_MODULES_FINDER) $(KERNEL_OUT) | tr '\n' ' '); \
+					recovery_kernel_modules_finder_output=$$($(RECOVERY_KERNEL_MODULES_FINDER) $$kernel_modules_dir | tr '\n' ' '); \
 				) \
 				$(if $(filter true,$(TARGET_AUTO_COLLECT_KERNEL_MODULE_DEPS)), \
-					recovery_kernel_modules_deps=$$($(COLLECT_MODULE_DEPS_CMD) $(KERNEL_OUT) $(RECOVERY_KERNEL_MODULES) $$recovery_kernel_modules_finder_output | tr '\n' ' '); \
+					recovery_kernel_modules_deps=$$($(COLLECT_MODULE_DEPS_CMD) $$kernel_modules_dir $(RECOVERY_KERNEL_MODULES) $$recovery_kernel_modules_finder_output | tr '\n' ' '); \
 				) \
 				recovery_modules=$$(for m in $(RECOVERY_KERNEL_MODULES) $$recovery_kernel_modules_finder_output $$recovery_kernel_modules_deps; do \
 					p=$$(echo $$all_modules | tr ' ' '\n' | grep /$$m); \
@@ -747,7 +748,7 @@ endef
 endif # FULL_KERNEL_BUILD
 
 ifneq ($(TARGET_KERNEL_PLATFORM_TARGET),)
-KERNEL_PATH := $(abspath $(BUILD_TOP)/../kernel-$(TARGET_KERNEL_VERSION))
+KERNEL_PATH := $(abspath $(BUILD_TOP)/kernel/platform/kernel-$(TARGET_KERNEL_VERSION))
 $(TARGET_PREBUILT_INT_KERNEL): $(DEPMOD) $(KERNEL_MODULES_PARTITION_FILE_LIST) $(SYSTEM_KERNEL_MODULES_PARTITION_FILE_LIST)
 	@echo "Building $(BOARD_KERNEL_IMAGE_NAME)"
 	@mkdir -p $(KERNEL_OUT)
@@ -765,6 +766,19 @@ $(TARGET_PREBUILT_INT_KERNEL): $(DEPMOD) $(KERNEL_MODULES_PARTITION_FILE_LIST) $
 	)
 	vendor_modules=$$(comm -23 <(find $(KERNEL_OUT) -maxdepth 1 -type f -name '*.ko' | awk -F'/' '{ print $$NF }' | sort) <(awk -F'/' '{ print $$NF }' $(KERNEL_OUT)/system_dlkm.modules.load | sort) | sed 's|^|$(KERNEL_OUT)/|'); \
 	($(call build-image-kernel-modules-superior,$$vendor_modules,$(KERNEL_MODULES_OUT),$(KERNEL_MODULE_MOUNTPOINT)/,$(KERNEL_DEPMOD_STAGING_DIR),$(BOARD_VENDOR_KERNEL_MODULES_LOAD),,$(KERNEL_MODULES_PARTITION_FILE_LIST),$(SYSTEM_KERNEL_DEPMOD_STAGING_DIR)/lib/modules/0.0/$(SYSTEM_KERNEL_MODULE_MOUNTPOINT)))
+
+ifeq ($(BOARD_INCLUDE_DTB_IN_BOOTIMG),true)
+$(INSTALLED_DTBIMAGE_TARGET): $(TARGET_PREBUILT_INT_KERNEL)
+	@rm -f $@
+	$(foreach dtb,$(TARGET_DTB_LIST_WILDCARD),\
+		cat `find $(abspath $(KERNEL_OUT))/$(dir $(dtb)) -maxdepth 1 -type f -name "$(notdir $(dtb)).dtb" | sort` >> $@;)
+endif
+
+ifeq ($(BOARD_KERNEL_SEPARATED_DTBO),true)
+MKDTBOIMG := $(HOST_OUT_EXECUTABLES)/mkdtboimg$(HOST_EXECUTABLE_SUFFIX)
+$(BOARD_PREBUILT_DTBOIMAGE): $(TARGET_PREBUILT_INT_KERNEL) $(MKDTBOIMG)
+	$(MKDTBOIMG) create $@ --page_size=$(BOARD_KERNEL_PAGESIZE) $(shell find $(abspath $(KERNEL_OUT))/$(dir $(TARGET_DTBO_LIST_WILDCARD)) -maxdepth 1 -type f -name "$(notdir $(TARGET_DTBO_LIST_WILDCARD)).dtbo" | sort)
+endif
 endif
 
 ifeq ($(NEEDS_KERNEL_COPY),true)
