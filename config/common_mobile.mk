@@ -16,6 +16,7 @@ PRODUCT_PRODUCT_PROPERTIES += \
 # Apps
 PRODUCT_PACKAGES += \
     AvatarPicker \
+    Gallery2 \
     Glimpse \
     LatinIME
 
@@ -45,6 +46,10 @@ PRODUCT_PACKAGES += \
     superior_charger_animation \
     superior_charger_animation_vendor
 endif
+
+# Credential storage
+PRODUCT_PACKAGES += \
+    android.software.credentials.prebuilt.xml
 
 # Legal
 PRODUCT_PRODUCT_PROPERTIES += \
