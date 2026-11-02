@@ -197,6 +197,9 @@ elif [ "${KEY_MAPPINGS}" ]; then
         --extra_apks ServiceConnectivityResources.apk=$KEY_MAPPINGS/releasekey \
         --extra_apks ServiceUwbResources.apk=$KEY_MAPPINGS/releasekey \
         --extra_apks ServiceWifiResources.apk=$KEY_MAPPINGS/releasekey \
+        --extra_apks TelecomServiceResources.apk=$KEY_MAPPINGS/releasekey \
+        --extra_apks TelecomUi.apk=$KEY_MAPPINGS/releasekey \
+        --extra_apks WebAppService.apk=$KEY_MAPPINGS/releasekey \
         --extra_apks WifiDialog.apk=$KEY_MAPPINGS/releasekey \
         --extra_apks com.android.adbd.apex=$KEY_MAPPINGS/com.android.adbd \
         --extra_apks com.android.adservices.apex=$KEY_MAPPINGS/com.android.adservices \
@@ -222,6 +225,7 @@ elif [ "${KEY_MAPPINGS}" ]; then
         --extra_apks com.android.hardware.boot.apex=$KEY_MAPPINGS/com.android.hardware.boot \
         --extra_apks com.android.hardware.cas.apex=$KEY_MAPPINGS/com.android.hardware.cas \
         --extra_apks com.android.hardware.contexthub.apex=$KEY_MAPPINGS/com.android.hardware.contexthub \
+        --extra_apks com.android.hardware.drm.clearkey.apex=$KEY_MAPPINGS/com.android.hardware.drm.clearkey \
         --extra_apks com.android.hardware.dumpstate.apex=$KEY_MAPPINGS/com.android.hardware.dumpstate \
         --extra_apks com.android.hardware.gatekeeper.nonsecure.apex=$KEY_MAPPINGS/com.android.hardware.gatekeeper.nonsecure \
         --extra_apks com.android.hardware.neuralnetworks.apex=$KEY_MAPPINGS/com.android.hardware.neuralnetworks \
@@ -243,6 +247,7 @@ elif [ "${KEY_MAPPINGS}" ]; then
         --extra_apks com.android.networkstack.tethering.apex=$KEY_MAPPINGS/com.android.networkstack.tethering \
         --extra_apks com.android.neuralnetworks.apex=$KEY_MAPPINGS/com.android.neuralnetworks \
         --extra_apks com.android.nfcservices.apex=$KEY_MAPPINGS/com.android.nfcservices \
+        --extra_apks com.android.npumanager.apex=$KEY_MAPPINGS/com.android.npumanager \
         --extra_apks com.android.ondevicepersonalization.apex=$KEY_MAPPINGS/com.android.ondevicepersonalization \
         --extra_apks com.android.os.statsd.apex=$KEY_MAPPINGS/com.android.os.statsd \
         --extra_apks com.android.permission.apex=$KEY_MAPPINGS/com.android.permission \
@@ -254,6 +259,9 @@ elif [ "${KEY_MAPPINGS}" ]; then
         --extra_apks com.android.scheduling.apex=$KEY_MAPPINGS/com.android.scheduling \
         --extra_apks com.android.sdkext.apex=$KEY_MAPPINGS/com.android.sdkext \
         --extra_apks com.android.support.apexer.apex=$KEY_MAPPINGS/com.android.support.apexer \
+        --extra_apks com.android.telecom.apex=$KEY_MAPPINGS/com.android.telecom \
+        --extra_apks com.android.telecom.resources.apex=$KEY_MAPPINGS/com.android.telecom.resources \
+        --extra_apks com.android.telecomui.apex=$KEY_MAPPINGS/com.android.telecomui \
         --extra_apks com.android.telephony.apex=$KEY_MAPPINGS/com.android.telephony \
         --extra_apks com.android.telephonycore.apex=$KEY_MAPPINGS/com.android.telephonycore \
         --extra_apks com.android.telephonymodules.apex=$KEY_MAPPINGS/com.android.telephonymodules \
@@ -265,6 +273,7 @@ elif [ "${KEY_MAPPINGS}" ]; then
         --extra_apks com.android.virt.apex=$KEY_MAPPINGS/com.android.virt \
         --extra_apks com.android.vndk.current.apex=$KEY_MAPPINGS/com.android.vndk.current \
         --extra_apks com.android.vndk.current.on_vendor.apex=$KEY_MAPPINGS/com.android.vndk.current.on_vendor \
+        --extra_apks com.android.webapp.apex=$KEY_MAPPINGS/com.android.webapp \
         --extra_apks com.android.wifi.apex=$KEY_MAPPINGS/com.android.wifi \
         --extra_apks com.android.wifi.dialog.apex=$KEY_MAPPINGS/com.android.wifi.dialog \
         --extra_apks com.android.wifi.resources.apex=$KEY_MAPPINGS/com.android.wifi.resources \
@@ -295,6 +304,7 @@ elif [ "${KEY_MAPPINGS}" ]; then
         --extra_apex_payload_key com.android.hardware.boot.apex=$KEY_MAPPINGS/com.android.hardware.boot.pem \
         --extra_apex_payload_key com.android.hardware.cas.apex=$KEY_MAPPINGS/com.android.hardware.cas.pem \
         --extra_apex_payload_key com.android.hardware.contexthub.apex=$KEY_MAPPINGS/com.android.hardware.contexthub.pem \
+        --extra_apex_payload_key com.android.hardware.drm.clearkey.apex=$KEY_MAPPINGS/com.android.hardware.drm.clearkey.pem \
         --extra_apex_payload_key com.android.hardware.dumpstate.apex=$KEY_MAPPINGS/com.android.hardware.dumpstate.pem \
         --extra_apex_payload_key com.android.hardware.gatekeeper.nonsecure.apex=$KEY_MAPPINGS/com.android.hardware.gatekeeper.nonsecure.pem \
         --extra_apex_payload_key com.android.hardware.neuralnetworks.apex=$KEY_MAPPINGS/com.android.hardware.neuralnetworks.pem \
@@ -316,6 +326,7 @@ elif [ "${KEY_MAPPINGS}" ]; then
         --extra_apex_payload_key com.android.networkstack.tethering.apex=$KEY_MAPPINGS/com.android.networkstack.tethering.pem \
         --extra_apex_payload_key com.android.neuralnetworks.apex=$KEY_MAPPINGS/com.android.neuralnetworks.pem \
         --extra_apex_payload_key com.android.nfcservices.apex=$KEY_MAPPINGS/com.android.nfcservices.pem \
+        --extra_apex_payload_key com.android.npumanager.apex=$KEY_MAPPINGS/com.android.npumanager.pem \
         --extra_apex_payload_key com.android.ondevicepersonalization.apex=$KEY_MAPPINGS/com.android.ondevicepersonalization.pem \
         --extra_apex_payload_key com.android.os.statsd.apex=$KEY_MAPPINGS/com.android.os.statsd.pem \
         --extra_apex_payload_key com.android.permission.apex=$KEY_MAPPINGS/com.android.permission.pem \
@@ -327,6 +338,9 @@ elif [ "${KEY_MAPPINGS}" ]; then
         --extra_apex_payload_key com.android.scheduling.apex=$KEY_MAPPINGS/com.android.scheduling.pem \
         --extra_apex_payload_key com.android.sdkext.apex=$KEY_MAPPINGS/com.android.sdkext.pem \
         --extra_apex_payload_key com.android.support.apexer.apex=$KEY_MAPPINGS/com.android.support.apexer.pem \
+        --extra_apex_payload_key com.android.telecom.apex=$KEY_MAPPINGS/com.android.telecom.pem \
+        --extra_apex_payload_key com.android.telecom.resources.apex=$KEY_MAPPINGS/com.android.telecom.resources.pem \
+        --extra_apex_payload_key com.android.telecomui.apex=$KEY_MAPPINGS/com.android.telecomui.pem \
         --extra_apex_payload_key com.android.telephony.apex=$KEY_MAPPINGS/com.android.telephony.pem \
         --extra_apex_payload_key com.android.telephonycore.apex=$KEY_MAPPINGS/com.android.telephonycore.pem \
         --extra_apex_payload_key com.android.telephonymodules.apex=$KEY_MAPPINGS/com.android.telephonymodules.pem \
@@ -338,6 +352,7 @@ elif [ "${KEY_MAPPINGS}" ]; then
         --extra_apex_payload_key com.android.virt.apex=$KEY_MAPPINGS/com.android.virt.pem \
         --extra_apex_payload_key com.android.vndk.current.apex=$KEY_MAPPINGS/com.android.vndk.current.pem \
         --extra_apex_payload_key com.android.vndk.current.on_vendor.apex=$KEY_MAPPINGS/com.android.vndk.current.on_vendor.pem \
+        --extra_apex_payload_key com.android.webapp.apex=$KEY_MAPPINGS/com.android.webapp.pem \
         --extra_apex_payload_key com.android.wifi.apex=$KEY_MAPPINGS/com.android.wifi.pem \
         --extra_apex_payload_key com.android.wifi.dialog.apex=$KEY_MAPPINGS/com.android.wifi.dialog.pem \
         --extra_apex_payload_key com.android.wifi.resources.apex=$KEY_MAPPINGS/com.android.wifi.resources.pem \
